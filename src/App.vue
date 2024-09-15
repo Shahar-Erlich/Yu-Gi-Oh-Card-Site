@@ -2,7 +2,7 @@
 <!-- Parent div -->
   <div class="grid grid-cols-2">
 <!-- Card div -->
-  <div class="flip-card child">
+  <div class="flip-card">
     <div class="flip-card-inner" :class="{ flipped: isFlipped }">
       <div class="flip-card-front">
        <img :src="this.cardImage" alt="/CardBack.jpg" style="width:369.5454  px;height:538.63px;">
@@ -15,7 +15,7 @@
 
   <Transition>
   <!-- Info div-->
-   <div class="child text-white" v-if="show" style="text-align: left;">
+   <div class=" text-white" :class="{ invisible: !show }" style="text-align: left;">
     <h1  class="text-3xl font-bold underline">{{ this.cardName }}</h1>
     <p>{{ this.cardType }}</p>
     <p>{{ this.cardDesc }}</p>
@@ -106,6 +106,43 @@ export default {
 
 </script>
 
-<style>
+<style>/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 369.5454px;
+  transform-origin: 50% 50%; /* Center the flip */
+  height: 568.63px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
 
+/* This container is needed to position the front and back side */
+ .flip-card-inner {
+  position: relative;
+  width: 369.5454px;
+  height: 568.63px;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
 </style>
