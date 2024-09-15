@@ -92,7 +92,7 @@ export default {
         this.cardImage += this.cardName.replace(/[/\\?%*:|"<>]/g, '') +".jpg";
         this.flipCard();
       this.show =!this.show;
-      this.isButtonDisabled = false; // Re-enable the button
+      this.isButtonDisabled = false; // Re-enable the button 
 
         console.log(this.cardImage);
       })
