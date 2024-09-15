@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -30,12 +34,6 @@ body {
   min-height: 100vh;
   background-color: #242424;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -77,4 +75,67 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  .v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+.btnget:disabled {
+  background-color: #444; /* Darker background for disabled state */
+  cursor: not-allowed;
+  opacity: 0.6; /* Slightly transparent */
+}
+.btnget{
+  width: 200px;
+  height: 100px;
+}
+.btndiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10%;
+}
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 369.5454px;
+  transform-origin: 50% 50%; /* Center the flip */
+  height: 568.63px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+ .flip-card-inner {
+  position: relative;
+  width: 369.5454px;
+  height: 568.63px;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
 }
