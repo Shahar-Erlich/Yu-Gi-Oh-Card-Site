@@ -91,9 +91,7 @@ button:focus-visible {
   justify-content: center;
   margin-top: -10%;
 }
-@layer components{
-.infoBG{
-  @apply bg-purple-800 rounded-lg inline-block table;
-}
+.cardName{
+  @apply text-5xl font-bold font-custom1;
 }
 }

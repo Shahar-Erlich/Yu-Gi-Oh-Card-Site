@@ -1,28 +1,32 @@
 <template >
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Parent div -->
+<Modal :isVisible="isModalVisible" :imageSrc="selectedImage" @update:isVisible="isModalVisible = $event"/>
   <div class="grid grid-cols-[370px_600px]">
 <!-- Card div -->
-  <div class="flip-card inline-block" :class="{'-translate-x-40': firstTime==false, 'transition-transform duration-500': true}">
+  <div class="flip-card inline-block" :class="{'-translate-x-10': firstTime==false, 'transition-transform duration-500': true}" >
     <div class="flip-card-inner" :class="{ flipped: isFlipped }">
       <div class="flip-card-front">
-       <img class="transform transition-transform duration-300 hover:scale-150 w-16  md:w-32 lg:w-90 xl:w-96" :src="this.cardImage" alt="/CardBack.jpg" >
+       <img draggable="false" class="transform transition-transform duration-300 hover:scale-125 w-16  md:w-32 lg:w-90 xl:w-96 z-10":src="this.cardImage" alt="/CardBack.jpg" @click="openModal">
       </div>
      <div class="flip-card-back">
-       <img src="/CardBack.jpg" class="w-16  md:w-32 lg:w-90 xl:w-96">
+       <img src="/CardBack.jpg" draggable="false" class="w-16  md:w-32 lg:w-90 xl:w-96">
      </div>
     </div>
   </div>
+
 <!--style="width:369.5454px;height:538.63px;"-->
   <!-- Info div-->
     <div :class="{'opacity-0': !show, 'opacity-100': show}" class=" text-white transition-opacity duration-500 ease-in-out" style="text-align: left;">
-      <h1  class="text-3xl font-bold underline infoBG">{{ this.cardName }}</h1>
-      <p class="infoBG">{{ this.cardLvl }}</p>
-      <p class="infoBG">{{ this.cardATT }}</p>
-     <p class="infoBG">{{ this.cardRace }}</p>
-     <p class="infoBG">{{ this.cardType }}</p>
-     <p v-if="!isSpell" class="infoBG">{{ this.cardATK}}/{{ this.cardDEF }}</p>
-     <p class="infoBG">{{ this.cardDesc }}</p>
+      <h1  class="cardName">{{ this.cardName }}</h1>
+      <p>{{ this.cardLvl }}</p>
+      <div>
+        <p class="font-custom3 inline-block"><img draggable="false" class="w-7 h-7 inline-block" v-if="this.attImg" :src="this.attImg">{{ this.cardATT }}</p>
+        <p class="font-custom3 inline-block">&nbsp;&nbsp;{{ this.cardRace }}</p>
+      </div>
+      <p class="font-custom3">{{ this.cardType }}</p>
+     <p v-if="!isSpell" class="infoBG font-custom3">{{ this.cardATK}}/{{ this.cardDEF }}</p>
+     <p class="font-custom2">{{ this.cardDesc }}</p>
      </div>
 </div>
 <div class="btndiv">
@@ -32,14 +36,16 @@
 
 
 <script>
+import Modal from './Modal.vue';
 import { h, ref } from 'vue';
 export default {
   name: 'App',
+  components: { Modal },
   data() {
     return {
       show : true,
       render: false,
-
+      isModalVisible: false,
       cardName: "",
       cardType: "",
       cardDesc: "",
@@ -48,8 +54,10 @@ export default {
       cardLvl: "",
       cardRace: "",
       cardATT: "",
+      attImg: "",
       isSpell:true,
       cardImage: "/CardBack.jpg",
+      selectedImage:"",
       firstTime: true,
       time: "",
       isFlipped: true, // State to manage the flip
@@ -58,6 +66,14 @@ export default {
   computed: {
   },
   methods: {
+    openModal() {
+      this.isModalVisible = true;
+      console.log(this.isModalVisible);
+      console.log(this.selectedImage);
+    },
+    closeModal() {
+      this.$emit('update:isVisible', false);
+    },
     btnC(){
       if (this.isButtonDisabled) return; // Prevent action if button is disabled
       this.isButtonDisabled = true; // Disable the button
@@ -85,9 +101,12 @@ export default {
         this.cardLvl = data["data"][0]["level"];
         this.cardRace = data["data"][0]["race"];
         this.cardATT = data["data"][0]["attribute"];
-
-
-
+        if(this.cardType.includes("onster")){
+        this.attImg = "/General Card Assets/" + this.cardATT + ".png"
+        }
+        else{
+          this.cardType.includes("Spell") ? this.attImg ="/General Card Assets/SPELL.png":this.attImg ="/General Card Assets/TRAP.png"
+        }
         if((String)(data["data"][0]["type"]).includes("Monster")){
           this.cardImage = "/Monsters/";
           this.isSpell=false;
@@ -97,6 +116,7 @@ export default {
           this.isSpell =true;
         }
         this.cardImage += this.cardName.replace(/[/\\?%*:|"<>]/g, '') +".jpg";
+        this.selectedImage = this.cardImage;
         this.flipCard();
       this.show =!this.show;
       this.isButtonDisabled = false; // Re-enable the button 

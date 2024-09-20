@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Card-Name';
+    src: url('/src/assets/fonts/Yu-Gi-Oh! Matrix Regular Small Caps 2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Card-Effect';
+    src: url('/src/assets/fonts/Yu-Gi-Oh! Matrix Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Card-Attribute';
+    src: url('/src/assets/fonts/Yu-Gi-Oh! ITC Stone Serif Small Caps Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Card-Normal';
+    src: url('/src/assets/fonts/Yu-Gi-Oh! ITC Stone Serif LT Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    
+  }
