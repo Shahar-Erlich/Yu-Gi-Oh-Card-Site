@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 public/Monsters
 public/Spells_Traps
+public/Cards_Small

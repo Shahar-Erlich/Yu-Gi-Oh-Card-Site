@@ -8,6 +8,7 @@ export default defineConfig({
       '/api': {
         target: 'https://db.ygoprodeck.com',
         changeOrigin: true,
+        assetsInlineLimit: 0, // Disable inlining images during development
         rewrite: (path) => path.replace(/^\/api/, ''), // removes '/api' prefix
       },
     },
